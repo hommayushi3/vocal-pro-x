@@ -1,0 +1,6 @@
+python=3.10
+google-endpoints==4.8.0
+google-endpoints-api-management==1.11.1
+rsa==4.9
+assemblyai==0.2.7
+omnizart==0.5.0
