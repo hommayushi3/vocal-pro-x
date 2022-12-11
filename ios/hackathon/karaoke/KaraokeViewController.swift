@@ -16,11 +16,21 @@ class KaraokeViewController: UIViewController {
         super.loadView()
         setGradientBackground()
         setKaroakeView()
+        setNavBar()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         loadData()
+    }
+    
+    private func setNavBar() {
+        let searchBtn = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchPressed))
+        navigationItem.leftBarButtonItem = searchBtn
+    }
+    
+    @objc private func searchPressed() {
+        removeLine()
     }
     
     private func loadData() {
@@ -40,6 +50,15 @@ class KaraokeViewController: UIViewController {
                 addLineToStackView(line: line, color: color)
             }
         }
+    }
+    
+    private func removeLine() {
+        lines.remove(at: 0)
+        for subview in karoakeView.arrangedSubviews {
+            karoakeView.removeArrangedSubview(subview)
+            subview.removeFromSuperview()
+        }
+        showLines()
     }
     
     private func setKaroakeView() {
