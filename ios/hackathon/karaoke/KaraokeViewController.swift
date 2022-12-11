@@ -22,6 +22,7 @@ class KaraokeViewController: UIViewController {
     private var player: AVPlayer?
     private var spinnerContainer: UIView?
     private let dataStore = KaraokeDataStore()
+    private let imgView = UIImageView()
     
     private let youtubeURL: String
     
@@ -38,6 +39,7 @@ class KaraokeViewController: UIViewController {
         super.loadView()
         setGradientBackground()
         setKaroakeView()
+        addImgView()
         setNavBar()
     }
 
@@ -156,6 +158,17 @@ class KaraokeViewController: UIViewController {
         label.numberOfLines = 2
         label.sizeToFit()
         karoakeView.addArrangedSubview(label)
+    }
+    
+    private func addImgView() {
+        imgView.backgroundColor = .blue
+        imgView.layer.cornerRadius = 15
+        view.addSubview(imgView)
+        imgView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(30)
+            make.topMargin.equalToSuperview().offset(50)
+            make.bottom.equalTo(karoakeView.snp.top).offset(-30)
+        }
     }
     
     private func setGradientBackground() {
