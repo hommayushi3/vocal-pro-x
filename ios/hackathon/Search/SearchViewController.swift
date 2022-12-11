@@ -23,14 +23,17 @@ class SearchViewController: UIViewController {
         let myURL = URL(string:"https://youtube.com")
         let myRequest = URLRequest(url: myURL!)
         webView.load(myRequest)
+
     }
     
     private func setWebView() {
         let webConfiguration = WKWebViewConfiguration()
+        webConfiguration.allowsInlineMediaPlayback = true
         webView = WKWebView(frame: .zero, configuration: webConfiguration)
         view.addSubview(webView)
         webView.snp.makeConstraints { make in
-            make.topMargin.bottomMargin.leading.trailing.equalToSuperview()
+            make.topMargin.bottomMargin.equalToSuperview().inset(30)
+            make.leading.trailing.equalToSuperview()
         }
     }
 }

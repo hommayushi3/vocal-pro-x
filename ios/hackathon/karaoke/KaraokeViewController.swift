@@ -75,7 +75,10 @@ class KaraokeViewController: UIViewController {
     }
     
     @objc private func searchPressed() {
-        removeLine()
+        player?.pause()
+        let searchVC = SearchViewController()
+        self.navigationController?.pushViewController(searchVC, animated: true)
+//        removeLine()
     }
     
     private func loadData() {
