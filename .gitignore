@@ -134,3 +134,5 @@ dmypy.json
 server/mp4
 server/separated
 server/wav
+server/lyrics
+server/images

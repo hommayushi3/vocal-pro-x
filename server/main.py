@@ -83,29 +83,30 @@ def transcribe(video_id):
             combo_prompts.append(prev_prompt)
             prev_prompt = ""
 
-    batch_size = 10
+    batch_size = 8
     for i in range((len(combo_prompts) + batch_size - 1)//batch_size):
         prompt_batch = [p for p in combo_prompts[batch_size * i: batch_size * (i+1)]]
         images.extend(pipe(
             prompt_batch, negative_prompt=["words posters sign"] * len(prompt_batch),
-            num_inference_steps=15, height=520, width=368).images)
+            num_inference_steps=1, height=504, width=344).images)
     # Save images
+    os.makedirs(f"images/{video_id}")
     for i, image in enumerate(images):
         path = f"images/{video_id}/{i}.png"
-        image.save(f"images/{video_id}/{i}.png")
+        image.save(path)
         image_idxs[video_id].append(path)
 
     return {
         'lyric_lines': lyric_lines,
         'word_timestamps': word_ts,
         'video_id': video_id,
-        'image_urls': [f"http://34.95.221.65:8080/{path[-4:]}" for path in image_idxs[video_id]]
+        'image_urls': [f"http://34.95.221.65:5000/{path[:-4]}" for path in image_idxs[video_id]]
     }
 
-@app.route('/images/<string:video_id>/<int:index>/')
+@app.route('/images/<string:video_id>/<string:index>/')
 def get_image(video_id, index):
     try:
-        response = send_file(image_idxs[video_id][index])
+        response = send_file(image_idxs[video_id][int(index)])
     finally:
         pass
     return response
