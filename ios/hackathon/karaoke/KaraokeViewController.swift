@@ -77,6 +77,9 @@ class KaraokeViewController: UIViewController {
     @objc private func searchPressed() {
         player?.pause()
         let searchVC = SearchViewController()
+        searchVC.receivedYoutubeLink = { youtubeLink in
+            print(youtubeLink)
+        }
         self.navigationController?.pushViewController(searchVC, animated: true)
 //        removeLine()
     }
@@ -140,8 +143,8 @@ class KaraokeViewController: UIViewController {
     
     private func setGradientBackground() {
         let gradientLayer = CAGradientLayer()
-        let color1 = hexStringToUIColor(hex: "FF0072")
-        let color2 = hexStringToUIColor(hex: "FF7F47")
+        let color1 = Helpers.hexStringToUIColor(hex: "FF0072")
+        let color2 = Helpers.hexStringToUIColor(hex: "FF7F47")
         gradientLayer.colors = [color1.cgColor, color2.cgColor]
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 1.0)
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.0)
@@ -149,28 +152,6 @@ class KaraokeViewController: UIViewController {
         gradientLayer.frame = self.view.bounds
         
         view.layer.insertSublayer(gradientLayer, at: 0)
-    }
-    
-    func hexStringToUIColor (hex:String) -> UIColor {
-        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-        
-        if (cString.hasPrefix("#")) {
-            cString.remove(at: cString.startIndex)
-        }
-        
-        if ((cString.count) != 6) {
-            return UIColor.gray
-        }
-        
-        var rgbValue:UInt64 = 0
-        Scanner(string: cString).scanHexInt64(&rgbValue)
-        
-        return UIColor(
-            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
-            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
-            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
-            alpha: CGFloat(1.0)
-        )
     }
     
     private func playSound() {
@@ -193,5 +174,29 @@ class KaraokeViewController: UIViewController {
         } catch let error {
             print(error.localizedDescription)
         }
+    }
+}
+
+struct Helpers {
+    static func hexStringToUIColor (hex:String) -> UIColor {
+        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        
+        if (cString.hasPrefix("#")) {
+            cString.remove(at: cString.startIndex)
+        }
+        
+        if ((cString.count) != 6) {
+            return UIColor.gray
+        }
+        
+        var rgbValue:UInt64 = 0
+        Scanner(string: cString).scanHexInt64(&rgbValue)
+        
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(1.0)
+        )
     }
 }

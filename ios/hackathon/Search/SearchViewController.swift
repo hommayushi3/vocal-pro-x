@@ -11,12 +11,15 @@ import SnapKit
 
 class SearchViewController: UIViewController {
     private var webView: WKWebView!
+    private var saveBtn = UIButton()
+    
+    var receivedYoutubeLink: ((String) -> ())?
     
     override func loadView() {
         super.loadView()
+        setBtn()
         setWebView()
     }
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,14 +29,38 @@ class SearchViewController: UIViewController {
 
     }
     
+    private func setBtn() {
+        saveBtn.setTitle("Select Song", for: .normal)
+        saveBtn.setTitleColor(.black, for: .normal)
+        saveBtn.addTarget(self, action: #selector(saveBtnPressed), for: .touchUpInside)
+        saveBtn.layer.cornerRadius = 10
+        let pink = Helpers.hexStringToUIColor(hex: "FF0072")
+        saveBtn.backgroundColor = pink
+        self.view.addSubview(saveBtn)
+        saveBtn.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(75)
+            make.topMargin.equalToSuperview().offset(50)
+        }
+    }
+    
+    @objc private func saveBtnPressed() {
+        if let url = webView.url {
+            let urlStr = url.absoluteString
+            receivedYoutubeLink?(urlStr)
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
     private func setWebView() {
         let webConfiguration = WKWebViewConfiguration()
         webConfiguration.allowsInlineMediaPlayback = true
         webView = WKWebView(frame: .zero, configuration: webConfiguration)
         view.addSubview(webView)
         webView.snp.makeConstraints { make in
-            make.topMargin.bottomMargin.equalToSuperview().inset(30)
+            make.top.equalTo(saveBtn.snp.bottom).offset(20)
             make.leading.trailing.equalToSuperview()
+            make.bottomMargin.equalToSuperview()
         }
     }
 }
