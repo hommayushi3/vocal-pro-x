@@ -13,6 +13,7 @@
 		9224924C29441885004B9091 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9224924A29441885004B9091 /* Main.storyboard */; };
 		9224924E29441888004B9091 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9224924D29441888004B9091 /* Assets.xcassets */; };
 		9224925129441888004B9091 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9224924F29441888004B9091 /* LaunchScreen.storyboard */; };
+		9224925A294566C3004B9091 /* KaraokeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92249259294566C3004B9091 /* KaraokeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		9224924D29441888004B9091 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9224925029441888004B9091 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9224925229441888004B9091 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		92249259294566C3004B9091 /* KaraokeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KaraokeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 		9224924329441885004B9091 /* hackathon */ = {
 			isa = PBXGroup;
 			children = (
+				922492582945668E004B9091 /* karaoke */,
 				9224924429441885004B9091 /* AppDelegate.swift */,
 				9224924629441885004B9091 /* SceneDelegate.swift */,
 				9224924829441885004B9091 /* ViewController.swift */,
@@ -65,6 +68,14 @@
 				9224925229441888004B9091 /* Info.plist */,
 			);
 			path = hackathon;
+			sourceTree = "<group>";
+		};
+		922492582945668E004B9091 /* karaoke */ = {
+			isa = PBXGroup;
+			children = (
+				92249259294566C3004B9091 /* KaraokeViewController.swift */,
+			);
+			path = karaoke;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,6 +152,7 @@
 				9224924929441885004B9091 /* ViewController.swift in Sources */,
 				9224924529441885004B9091 /* AppDelegate.swift in Sources */,
 				9224924729441885004B9091 /* SceneDelegate.swift in Sources */,
+				9224925A294566C3004B9091 /* KaraokeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
