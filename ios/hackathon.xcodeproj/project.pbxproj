@@ -15,6 +15,7 @@
 		9224925E294576D2004B9091 /* john.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9224925D294576D2004B9091 /* john.wav */; };
 		9224926129457E97004B9091 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9224926029457E97004B9091 /* SearchViewController.swift */; };
 		922492632945A331004B9091 /* KaraokeDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922492622945A331004B9091 /* KaraokeDataStore.swift */; };
+		922492652945D415004B9091 /* BannerAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922492642945D415004B9091 /* BannerAlert.swift */; };
 		C8B61B7DCFF49370D4049CE2 /* Pods_hackathon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8A9AA915E73F59052AD0254 /* Pods_hackathon.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +31,7 @@
 		9224925D294576D2004B9091 /* john.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = john.wav; sourceTree = "<group>"; };
 		9224926029457E97004B9091 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		922492622945A331004B9091 /* KaraokeDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KaraokeDataStore.swift; sourceTree = "<group>"; };
+		922492642945D415004B9091 /* BannerAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerAlert.swift; sourceTree = "<group>"; };
 		A8A9AA915E73F59052AD0254 /* Pods_hackathon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_hackathon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9C2C6A6F54AC0454DDEB159 /* Pods-hackathon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hackathon.release.xcconfig"; path = "Target Support Files/Pods-hackathon/Pods-hackathon.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -75,6 +77,7 @@
 				9224924D29441888004B9091 /* Assets.xcassets */,
 				9224924F29441888004B9091 /* LaunchScreen.storyboard */,
 				9224925229441888004B9091 /* Info.plist */,
+				922492642945D415004B9091 /* BannerAlert.swift */,
 			);
 			path = hackathon;
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				922492652945D415004B9091 /* BannerAlert.swift in Sources */,
 				922492632945A331004B9091 /* KaraokeDataStore.swift in Sources */,
 				9224924529441885004B9091 /* AppDelegate.swift in Sources */,
 				9224924729441885004B9091 /* SceneDelegate.swift in Sources */,

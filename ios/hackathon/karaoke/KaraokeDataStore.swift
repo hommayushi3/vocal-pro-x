@@ -14,7 +14,7 @@ class KaraokeDataStore {
         let array: [String]
     }
     
-    func loadData(youtubeURL: String, completion: @escaping ([String], [KWord], String) -> Void) {
+    func loadData(youtubeURL: String, completion: @escaping ([String], [KWord], String, Error?) -> Void) {
         let parameters = ["youtubeURL": youtubeURL]
         let headers: HTTPHeaders = ["Authorization": "token", "content-type": "Application/json"]
         let url = "http://34.95.221.65:5000/karaoke/M-mtdN6R3bQ/"
@@ -39,9 +39,9 @@ class KaraokeDataStore {
                 let lyric_lines = resJSON["lyric_lines"].arrayValue.map { element in
                     return element.stringValue
                 }
-                completion(lyric_lines, kWords, instrumentalURL)
+                completion(lyric_lines, kWords, instrumentalURL, nil)
             case .failure(let error):
-                print(error)
+                completion([], [], "", error)
             }
         }
 //        request.responseDecodable { (data) in

@@ -97,25 +97,17 @@ class KaraokeViewController: UIViewController {
     }
     
     private func loadData() {
-//        spinnerContainer = Helpers.showActivityIndicatory(in: self.view)
-        dataStore.loadData(youtubeURL: "test") { lines, kWords, instrumental_url in
+        spinnerContainer = Helpers.showActivityIndicatory(in: self.view)
+        dataStore.loadData(youtubeURL: youtubeURL) { lines, kWords, instrumental_url, error in
             self.spinnerContainer?.removeFromSuperview()
-            self.lines = lines
-            self.kWords = kWords
+            if let error = error {
+                BannerAlert.show(with: error)
+            } else {
+                self.lines = lines
+                self.kWords = kWords
+                self.playSound(instrumentalURL: instrumental_url)
+            }
         }
-        
-        lines = ["It's a little bit funny, this feeling inside",
-                 "I'm not one of those who can easily hide",
-                 "I don't have much money, but, boy, if I did",
-                 "I'd buy a big house where we both could live"
-        ]
-        
-        let word = KWord(timestamp: 1.02, word: "It's")
-        kWords = [word, word, word, word]
-        
-        showLines()
-//        playSound()
-        setTimer()
     }
     
     private func showLines() {
@@ -184,12 +176,12 @@ class KaraokeViewController: UIViewController {
         view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
-    private func playSound() {
+    private func playSound(instrumentalURL: String) {
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
             try AVAudioSession.sharedInstance().setActive(true)
             
-            if let url = URL(string: "https://www2.cs.uic.edu/~i101/SoundFiles/BabyElephantWalk60.wav") {
+            if let url = URL(string: instrumentalURL) {
                 let playerItem = AVPlayerItem(url: url)
 
                 /* The following line is required for the player to work on iOS 11. Change the file type accordingly*/
@@ -198,6 +190,8 @@ class KaraokeViewController: UIViewController {
                 guard let player = player else { return }
                 player.volume = 1.0
                 player.play()
+                showLines()
+                setTimer()
             } else {
                 print("couldn't load baby url for the playerItem")
             }
