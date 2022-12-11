@@ -1,13 +1,15 @@
 from flask import Flask, send_file, jsonify
 app = Flask(__name__)
 
+from stable_whisper import load_model
+transcription_model = load_model('medium')
+
 def transcribe(video_id):
     
     import os
     import subprocess
     import pandas as pd
     from pytube import YouTube
-    from stable_whisper import load_model
     from functools import reduce
     
     # Download audio stream of YouTube video
@@ -28,7 +30,7 @@ def transcribe(video_id):
     subprocess.run([f"demucs --two-stems=vocals 'wav/{video_id}.wav'"], shell = True)
     
     # Transcribe Lyrics
-    transcription_model = load_model('medium')
+    # transcription_model = load_model('medium')
     segments = transcription_model.transcribe(f"{os.getcwd()}/separated/htdemucs/{video_id}/vocals.wav")['segments']
     
     lyric_lines = [segment['text'] for segment in segments]

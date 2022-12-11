@@ -130,3 +130,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 .cookie
+
+server/mp4
+server/separated
+server/wav
