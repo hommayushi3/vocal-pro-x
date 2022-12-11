@@ -68,45 +68,84 @@ class KaraokeViewController: UIViewController {
         })
     }
     
-    var currentRange: NSRange?
-    
     private func highlightWord() {
-        for (index, word) in kWords.enumerated() {
-            if kWords.indices.contains(index + 1) {
-                let nextTime = kWords[index + 1].timestamp
-                let currentTime = player?.currentTime().seconds ?? 0.0
-                if currentTime >= word.timestamp && currentTime <= nextTime {
-                    for lineView in karoakeView.arrangedSubviews {
-                        if let lineView = lineView as? UILabel, let text = lineView.text, text.contains(word.word) {
-                            let range = (text as NSString).range(of: word.word)
-                            if currentRange != range {
-                                currentRange = range
-                                
-                                print(range)
-
-                                let attributedText = NSMutableAttributedString.init(string: text)
-                                let blue = UIColor.init(red: 48 / 255.0, green: 196 / 255.0, blue: 246 / 255.0, alpha: 1.0)
-                                attributedText.addAttribute(NSAttributedString.Key.foregroundColor, value: blue , range: range)
-                                lineView.attributedText = attributedText
-                                
-                                kWords.removeAll { element in
-                                    return element.timestamp < currentTime
-                                }
-                                
-                                if range.contains(0) && currentTime > secondWordTime {
-                                    self.removeLine()
-                                }
-                                break
-                            }
-
-                            return
-                        }
-                    }
+        let currentTime = player?.currentTime().seconds ?? 0.0
+        if let lineView = karoakeView.arrangedSubviews.first as? UILabel, let text = lineView.text {
+            for word in kWords {
+                if text.contains(word.word) && currentTime >= word.timestamp {
                     
+                    
+                    let range = (text as NSString).range(of: word.word)
+                    let totalRange = NSRange(location: 0, length: range.upperBound)
+
+                    //making it blue
+                    let attributedText = NSMutableAttributedString.init(string: text)
+                    let blue = UIColor.init(red: 48 / 255.0, green: 196 / 255.0, blue: 246 / 255.0, alpha: 1.0)
+                    attributedText.addAttribute(NSAttributedString.Key.foregroundColor, value: blue , range: totalRange)
+                    lineView.attributedText = attributedText
+
+                    if totalRange.length >= text.count - 1 {
+                        print(totalRange)
+                        print(text.count - 1)
+                        removeLine()
+                        return
+                    }
                 }
             }
         }
+
     }
+    
+//    private func highlightWord() {
+//        for (index, word) in kWords.enumerated() {
+//            if kWords.indices.contains(index + 1) {
+//                let nextTime = kWords[index + 1].timestamp
+//                let currentTime = player?.currentTime().seconds ?? 0.0
+//                if currentTime >= word.timestamp && currentTime <= nextTime {
+//
+//
+//
+//                    for lineView in karoakeView.arrangedSubviews {
+//                        if let lineView = lineView as? UILabel, let text = lineView.text, text.contains(word.word) {
+//                            let range = (text as NSString).range(of: word.word)
+//                            if currentRange != range {
+//                                currentRange = range
+//
+//                                print(range)
+//
+//
+//
+//                                let attributedText = NSMutableAttributedString.init(string: text)
+//                                let blue = UIColor.init(red: 48 / 255.0, green: 196 / 255.0, blue: 246 / 255.0, alpha: 1.0)
+//                                attributedText.addAttribute(NSAttributedString.Key.foregroundColor, value: blue , range: range)
+//
+//                                //TEst
+//                                let testRange = NSRange(location: 0, length: Int(range._length))
+//                                attributedText.addAttribute(NSAttributedString.Key.foregroundColor, value: blue , range: testRange)
+//
+//
+//                                lineView.attributedText = attributedText
+//
+//
+//
+//                                kWords.removeAll { element in
+//                                    return element.timestamp < currentTime
+//                                }
+//
+//                                if range.contains(0) && currentTime > secondWordTime {
+//                                    self.removeLine()
+//                                }
+//                                break
+//                            }
+//
+//                            return
+//                        }
+//                    }
+//
+//                }
+//            }
+//        }
+//    }
     
     private func findLine(with word: String) -> Int? {
         let index = lines.firstIndex { line in
@@ -173,11 +212,11 @@ class KaraokeViewController: UIViewController {
     
     private func addLineToStackView(line: String, color: UIColor) {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 33, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 35, weight: .bold)
         label.setContentCompressionResistancePriority(.required, for: .vertical)
         label.textColor = color
         label.text = line
-        label.numberOfLines = 2
+        label.numberOfLines = 0
         label.sizeToFit()
         karoakeView.addArrangedSubview(label)
     }
