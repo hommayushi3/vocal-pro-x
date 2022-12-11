@@ -1,0 +1,8 @@
+runtime: python310
+basic_scaling:
+  max_instances: 1
+
+handlers:
+# The endpoints handler must be mapped to /_ah/api.
+- url: /_ah/api/.*
+  script: main.api
