@@ -23,6 +23,17 @@ class KaraokeViewController: UIViewController {
     private var spinnerContainer: UIView?
     private let dataStore = KaraokeDataStore()
     
+    private let youtubeURL: String
+    
+    init(youtubeURL: String) {
+        self.youtubeURL = youtubeURL
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func loadView() {
         super.loadView()
         setGradientBackground()
@@ -79,15 +90,12 @@ class KaraokeViewController: UIViewController {
     @objc private func searchPressed() {
         player?.pause()
         let searchVC = SearchViewController()
-        searchVC.receivedYoutubeLink = { youtubeLink in
-            print(youtubeLink)
-        }
         self.navigationController?.pushViewController(searchVC, animated: true)
 //        removeLine()
     }
     
     private func loadData() {
-        spinnerContainer = Helpers.showActivityIndicatory(in: self.view)
+//        spinnerContainer = Helpers.showActivityIndicatory(in: self.view)
         dataStore.loadData(youtubeURL: "test") { lines, kWords, instrumental_url in
             self.spinnerContainer?.removeFromSuperview()
             self.lines = lines

@@ -13,8 +13,6 @@ class SearchViewController: UIViewController {
     private var webView: WKWebView!
     private var saveBtn = UIButton()
     
-    var receivedYoutubeLink: ((String) -> ())?
-    
     override func loadView() {
         super.loadView()
         setBtn()
@@ -47,8 +45,8 @@ class SearchViewController: UIViewController {
     @objc private func saveBtnPressed() {
         if let url = webView.url {
             let urlStr = url.absoluteString
-            receivedYoutubeLink?(urlStr)
-            self.navigationController?.popViewController(animated: true)
+            let karaokeVC = KaraokeViewController(youtubeURL: urlStr)
+            self.navigationController?.pushViewController(karaokeVC, animated: true)
         }
     }
     

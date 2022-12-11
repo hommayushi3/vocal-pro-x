@@ -48,7 +48,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func setStartingVC(windowScene: UIScene) {
-        let vc = KaraokeViewController()
+        let vc = SearchViewController()
         let navController = UINavigationController(rootViewController: vc)
         set(windowScene: windowScene, startingVC: navController)
     }
