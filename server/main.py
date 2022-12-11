@@ -36,12 +36,11 @@ def transcribe(video_id):
         reduce(lambda x,y: x + y, [segment['word_timestamps'] for segment in segments])
     ).drop('token', axis = 1)\
     .to_json(orient = 'records')
-    instrumental_filepath = f"{os.getcwd()}/separated/htdemucs/{video_id}/no_vocals.wav"
     
     return {
         'lyric_lines': lyric_lines,
         'word_timestamps': word_ts,
-        'instrumental_filepath': instrumental_filepath
+        'video_id': video_id
     }
 
 @app.route('/karaoke/<string:video_id>/')
@@ -49,6 +48,19 @@ def get_karaoke(video_id):
     try:
         output = transcribe(video_id)
         response = jsonify(output)
+    finally:
+        pass
+    return response
+
+@app.route('/audio_files/<string:video_id>/')
+def get_instrumental_file(video_id):
+    try:
+        import os
+        instrumental_filepath = f"{os.getcwd()}/separated/htdemucs/{video_id}/no_vocals.wav"
+        response = send_file(
+            instrumental_filepath,
+            mimetype = 'audio/wav'
+        )
     finally:
         pass
     return response
