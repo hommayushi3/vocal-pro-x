@@ -10,16 +10,41 @@ import SnapKit
 
 class KaraokeViewController: UIViewController {
     private let karoakeView = UIStackView()
+    private var lines: [String] = []
+    
+    override func loadView() {
+        super.loadView()
+        setGradientBackground()
+        setKaroakeView()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setGradientBackground()
-        setKaroakeView()
+        loadData()
+    }
+    
+    private func loadData() {
+        lines = ["It's a little bit funny, this feeling inside",
+                 "I'm not one of those who can easily hide",
+                 "I don't have much money, but, boy, if I did",
+                 "I'd buy a big house where we both could live"
+        ]
+        
+        showLines()
+    }
+    
+    private func showLines() {
+        for (index, line) in lines.enumerated() {
+            if index < 5 {
+                let color: UIColor = index == 0 ? .white : UIColor.white.withAlphaComponent(0.3)
+                addLineToStackView(line: line, color: color)
+            }
+        }
     }
     
     private func setKaroakeView() {
         karoakeView.axis = .vertical
-        karoakeView.distribution = .fillProportionally
+        karoakeView.distribution = .fill
         karoakeView.spacing = 10
         karoakeView.alignment = .leading
         view.addSubview(karoakeView)
@@ -33,8 +58,11 @@ class KaraokeViewController: UIViewController {
     private func addLineToStackView(line: String, color: UIColor) {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 33, weight: .bold)
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
         label.textColor = color
-        label.numberOfLines = 0
+        label.text = line
+        label.numberOfLines = 2
+        label.sizeToFit()
         karoakeView.addArrangedSubview(label)
     }
     
