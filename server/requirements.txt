@@ -1,4 +1,4 @@
-python==3.9
+pandas==1.4.1
 pytube==12.1.0
 Flask
 Flask-RESTful
