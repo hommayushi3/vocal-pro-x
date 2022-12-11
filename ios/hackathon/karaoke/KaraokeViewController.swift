@@ -55,6 +55,9 @@ class KaraokeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadData()
+        let imageArray = ["john_1"]
+        let image = UIImage(named: imageArray[0])
+        self.imgView.image = image
     }
     
     private func setNavBar() {
@@ -62,9 +65,16 @@ class KaraokeViewController: UIViewController {
         navigationItem.leftBarButtonItem = searchBtn
     }
     
+    private var totalTime = 0.0
+    
     private func setTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true, block: { timer in
             self.highlightWord()
+            
+//            self.totalTime = self.totalTime + 0.01
+//            if self.totalTime % 10 == 0 {
+//
+//            }
         })
     }
     
