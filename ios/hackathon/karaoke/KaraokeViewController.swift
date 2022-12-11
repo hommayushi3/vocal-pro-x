@@ -19,7 +19,7 @@ class KaraokeViewController: UIViewController {
     private var lines: [String] = []
     private var kWords: [KWord] = []
     private var timer: Timer?
-    private var player: AVAudioPlayer?
+    private var player: AVPlayer?
     private var spinnerContainer: UIView?
     private let dataStore = KaraokeDataStore()
     
@@ -61,7 +61,7 @@ class KaraokeViewController: UIViewController {
         for (index, word) in kWords.enumerated() {
             if kWords.indices.contains(index + 1) {
                 let nextTime = kWords[index + 1].timestamp
-                let currentTime = player?.currentTime ?? 0.0
+                let currentTime = player?.currentTime().seconds ?? 0.0
                 if currentTime >= word.timestamp && currentTime <= nextTime {
                     for lineView in karoakeView.arrangedSubviews {
                         if let lineView = lineView as? UILabel, let text = lineView.text, text.contains(word.word) {
@@ -172,22 +172,22 @@ class KaraokeViewController: UIViewController {
     }
     
     private func playSound() {
-        guard let url = Bundle.main.url(forResource: "john", withExtension: "wav") else { return }
-
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
             try AVAudioSession.sharedInstance().setActive(true)
+            
+            if let url = URL(string: "https://www2.cs.uic.edu/~i101/SoundFiles/BabyElephantWalk60.wav") {
+                let playerItem = AVPlayerItem(url: url)
 
-            /* The following line is required for the player to work on iOS 11. Change the file type accordingly*/
-            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.wav.rawValue)
+                /* The following line is required for the player to work on iOS 11. Change the file type accordingly*/
+                player = AVPlayer(playerItem: playerItem)
 
-            /* iOS 10 and earlier require the following line:
-            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileTypeMPEGLayer3) */
-
-            guard let player = player else { return }
-
-            player.play()
-
+                guard let player = player else { return }
+                player.volume = 1.0
+                player.play()
+            } else {
+                print("couldn't load baby url for the playerItem")
+            }
         } catch let error {
             print(error.localizedDescription)
         }
