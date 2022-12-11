@@ -35,6 +35,15 @@ class KaraokeViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func getYoutubeID(youtubeURL: String) -> String {
+        if let range = youtubeURL.range(of: "v=") {
+            let id = youtubeURL[range.upperBound...]
+            return String(id)
+        }
+        
+        return ""
+    }
+    
     override func loadView() {
         super.loadView()
         setGradientBackground()
@@ -98,7 +107,8 @@ class KaraokeViewController: UIViewController {
     
     private func loadData() {
         spinnerContainer = Helpers.showActivityIndicatory(in: self.view)
-        dataStore.loadData(youtubeURL: youtubeURL) { lines, kWords, instrumental_url, error in
+        let youtubeID = getYoutubeID(youtubeURL: youtubeURL)
+        dataStore.loadData(youtubeID: youtubeID) { lines, kWords, instrumental_url, error in
             self.spinnerContainer?.removeFromSuperview()
             if let error = error {
                 BannerAlert.show(with: error)
@@ -241,6 +251,8 @@ struct Helpers {
         actInd.frame = CGRect(x: 0.0, y: 0.0, width: 40.0, height: 40.0)
         actInd.style =
             UIActivityIndicatorView.Style.large
+        actInd.backgroundColor = .white
+        actInd.tintColor = .white
         actInd.center = CGPoint(x: loadingView.frame.size.width / 2, y: loadingView.frame.size.height / 2)
         loadingView.addSubview(actInd)
         container.addSubview(loadingView)

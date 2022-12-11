@@ -14,20 +14,20 @@ class KaraokeDataStore {
         let array: [String]
     }
     
-    func loadData(youtubeURL: String, completion: @escaping ([String], [KWord], String, Error?) -> Void) {
-        let parameters = ["youtubeURL": youtubeURL]
+    func loadData(youtubeID: String, completion: @escaping ([String], [KWord], String, Error?) -> Void) {
         let headers: HTTPHeaders = ["Authorization": "token", "content-type": "Application/json"]
-        let url = "http://34.95.221.65:5000/karaoke/M-mtdN6R3bQ/"
+        let url = "http://34.95.221.65:5000/karaoke/\(youtubeID)/"
         
         // 1
-        let request = AF.request(url, method: .get, parameters: parameters, headers: headers)
+        let request = AF.request(url, method: .get, headers: headers)
         // 2sc
         request.responseJSON { response in
             switch response.result {
             case .success:
                 let resJSON = JSON(response.value)
-                let word_timestamps = resJSON["word_timestamps"].arrayValue
-                let kWords = word_timestamps.map { element in
+                let word_timestamps_str = resJSON["word_timestamps"].stringValue
+                let word_timestamps_array = JSON(parseJSON: word_timestamps_str).arrayValue
+                let kWords = word_timestamps_array.map { element in
                     let word = element["word"].stringValue
                     let timestamp = element["timestamp"].doubleValue
                     let kWord = KWord(timestamp: timestamp, word: word)
