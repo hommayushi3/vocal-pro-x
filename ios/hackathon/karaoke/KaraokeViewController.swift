@@ -63,7 +63,7 @@ class KaraokeViewController: UIViewController {
     }
     
     private func setTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true, block: { timer in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true, block: { timer in
             self.highlightWord()
         })
     }
@@ -89,9 +89,14 @@ class KaraokeViewController: UIViewController {
                                 attributedText.addAttribute(NSAttributedString.Key.foregroundColor, value: blue , range: range)
                                 lineView.attributedText = attributedText
                                 
+                                kWords.removeAll { element in
+                                    return element.timestamp < currentTime
+                                }
+                                
                                 if range.contains(0) && currentTime > secondWordTime {
                                     self.removeLine()
                                 }
+                                break
                             }
 
                             return
