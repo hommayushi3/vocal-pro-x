@@ -21,6 +21,7 @@ class KaraokeViewController: UIViewController {
     private var timer: Timer?
     private var player: AVAudioPlayer?
     private var spinnerContainer: UIView?
+    private let dataStore = KaraokeDataStore()
     
     override func loadView() {
         super.loadView()
@@ -86,6 +87,13 @@ class KaraokeViewController: UIViewController {
     }
     
     private func loadData() {
+        spinnerContainer = Helpers.showActivityIndicatory(in: self.view)
+        dataStore.loadData(youtubeURL: "test") { lines, kWords, instrumental_url in
+            self.spinnerContainer?.removeFromSuperview()
+            self.lines = lines
+            self.kWords = kWords
+        }
+        
         lines = ["It's a little bit funny, this feeling inside",
                  "I'm not one of those who can easily hide",
                  "I don't have much money, but, boy, if I did",

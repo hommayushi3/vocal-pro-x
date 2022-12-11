@@ -8,5 +8,7 @@
 import Foundation
 
 class KaraokeDataStore {
-    
+    func loadData(youtubeURL: String, completion: @escaping ([String], [KWord], String) -> Void) {
+        
+    }
 }
