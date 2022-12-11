@@ -8,7 +8,7 @@
 import UIKit
 
 class KaraokeViewController: UIViewController {
-    private let karoakeView: UIView!
+    private var karoakeView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
