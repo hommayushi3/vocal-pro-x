@@ -68,6 +68,8 @@ class KaraokeViewController: UIViewController {
         })
     }
     
+    var currentRange: NSRange?
+    
     private func highlightWord() {
         for (index, word) in kWords.enumerated() {
             if kWords.indices.contains(index + 1) {
@@ -77,11 +79,22 @@ class KaraokeViewController: UIViewController {
                     for lineView in karoakeView.arrangedSubviews {
                         if let lineView = lineView as? UILabel, let text = lineView.text, text.contains(word.word) {
                             let range = (text as NSString).range(of: word.word)
+                            if currentRange != range {
+                                currentRange = range
+                                
+                                print(range)
 
-                            let attributedText = NSMutableAttributedString.init(string: text)
-                            let blue = UIColor.init(red: 48 / 255.0, green: 196 / 255.0, blue: 246 / 255.0, alpha: 1.0)
-                            attributedText.addAttribute(NSAttributedString.Key.foregroundColor, value: blue , range: range)
-                            lineView.attributedText = attributedText
+                                let attributedText = NSMutableAttributedString.init(string: text)
+                                let blue = UIColor.init(red: 48 / 255.0, green: 196 / 255.0, blue: 246 / 255.0, alpha: 1.0)
+                                attributedText.addAttribute(NSAttributedString.Key.foregroundColor, value: blue , range: range)
+                                lineView.attributedText = attributedText
+                                
+                                if range.contains(0) && currentTime > secondWordTime {
+                                    self.removeLine()
+                                }
+                            }
+
+                            return
                         }
                     }
                     
@@ -102,8 +115,9 @@ class KaraokeViewController: UIViewController {
         player?.pause()
         let searchVC = SearchViewController()
         self.navigationController?.pushViewController(searchVC, animated: true)
-//        removeLine()
     }
+    
+    var secondWordTime: Double = 0.0
     
     private func loadData() {
         spinnerContainer = Helpers.showActivityIndicatory(in: self.view)
@@ -115,6 +129,7 @@ class KaraokeViewController: UIViewController {
             } else {
                 self.lines = lines
                 self.kWords = kWords
+                self.secondWordTime = kWords[1].timestamp
                 self.playSound(instrumentalURL: instrumental_url)
             }
         }
