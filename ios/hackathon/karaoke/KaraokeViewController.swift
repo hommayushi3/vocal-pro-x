@@ -114,7 +114,7 @@ class KaraokeViewController: UIViewController {
         kWords = [word, word, word, word]
         
         showLines()
-        playSound()
+//        playSound()
         setTimer()
     }
     
