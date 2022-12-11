@@ -16,8 +16,7 @@ class KaraokeDataStore {
     
     func loadData(youtubeID: String, completion: @escaping ([String], [KWord], String, Error?) -> Void) {
         let headers: HTTPHeaders = ["Authorization": "token", "content-type": "Application/json"]
-        let url = "http://34.95.221.65:5000/karaoke/GlPlfCy1urI/"
-//        let url = "http://34.95.221.65:5000/karaoke/\(youtubeID)/"
+        let url = "http://34.95.221.65:5000/karaoke/\(youtubeID)/"
         
         // 1
         let request = AF.request(url, method: .get, headers: headers)
