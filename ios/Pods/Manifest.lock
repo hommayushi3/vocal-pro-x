@@ -1,0 +1,45 @@
+PODS:
+  - Alamofire (5.6.2)
+  - Bolts/Tasks (1.9.1)
+  - BRYXBanner (0.8.4)
+  - Parse (1.19.3):
+    - Parse/Core (= 1.19.3)
+  - Parse/Core (1.19.3):
+    - Bolts/Tasks (= 1.9.1)
+  - Parse/UI (1.19.3):
+    - Parse/Core
+  - SCLAlertView (0.8)
+  - SnapKit (5.0.1)
+  - SwiftyJSON (4.3.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - BRYXBanner
+  - Parse
+  - Parse/UI
+  - SCLAlertView
+  - SnapKit (~> 5.0.0)
+  - SwiftyJSON (~> 4.0)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - Bolts
+    - BRYXBanner
+    - Parse
+    - SCLAlertView
+    - SnapKit
+    - SwiftyJSON
+
+SPEC CHECKSUMS:
+  Alamofire: d368e1ff8a298e6dde360e35a3e68e6c610e7204
+  Bolts: 8c1e8aab2f603387b8b9924f57d1d64f43d3ffdc
+  BRYXBanner: 4fbd266f96ce000e4c6cc9a0558c446bd88d9801
+  Parse: 0abb63a0ff6fa34a3f64b81d595a294e2ece143a
+  SCLAlertView: 6a77bb2edfc65e04dbe57725546cb4107a506b85
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
+
+PODFILE CHECKSUM: 9854ae162f311c5a2394d3c01f6660311606029a
+
+COCOAPODS: 1.11.3
